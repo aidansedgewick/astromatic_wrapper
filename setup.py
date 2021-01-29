@@ -22,7 +22,11 @@ from astropy_helpers.version_helpers import generate_version_py
 
 # Get some values from the setup.cfg
 from distutils import config
-conf = config.ConfigParser()
+
+if sys.version_info[0] >= 3:  # Python 3
+    conf = config.RawConfigParser()
+else:  # Python 2
+    conf = config.ConfigParser()
 conf.read(['setup.cfg'])
 metadata = dict(conf.items('metadata'))
 
